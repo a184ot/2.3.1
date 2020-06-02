@@ -16,26 +16,26 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    public UserController(UserService userService) {
+    private UserController(UserService userService) {
         this.userService = userService;
     }
 
     @GetMapping("/")
-    public String listUsers(ModelMap model) {
+    private String listUsers(ModelMap model) {
         List<User> userList = userService.listAllUsers();
         model.addAttribute("userList", userList);
         return "all-users";
     }
 
     @PostMapping("/admin")
-    public String listUsersPost(ModelMap model) {
+    private String listUsersPost(ModelMap model) {
         List<User> userList = userService.listAllUsers();
         model.addAttribute("userList", userList);
         return "all-users";
     }
 
     @PostMapping("/update")
-    public String editUsers(@RequestParam String id, ModelMap model) {
+    private String editUsers(@RequestParam String id, ModelMap model) {
         Long idLong = Long.parseLong(id);
         User user = userService.getUserById(idLong);
         model.addAttribute("user", user);
@@ -43,7 +43,7 @@ public class UserController {
     }
 
     @PostMapping("/updateUser")
-    public String editUsers2(@RequestParam String id, @RequestParam String viewName,
+    private String editUsers2(@RequestParam String id, @RequestParam String viewName,
                            @RequestParam String login, @RequestParam String password,
                            @RequestParam String email, @RequestParam String age,
                            @RequestParam String role, ModelMap model) {
@@ -57,7 +57,7 @@ public class UserController {
     }
 
     @PostMapping("/delete")
-    public String deleteUser(@RequestParam String id, ModelMap model) {
+    private String deleteUser(@RequestParam String id, ModelMap model) {
         Long idLong = Long.parseLong(id);
         userService.deleteUser(idLong);
         List<User> userList = userService.listAllUsers();
@@ -66,12 +66,12 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public String createUser(ModelMap model) {
+    private String createUser(ModelMap model) {
         return "create";
     }
 
     @PostMapping("/createUser")
-    public String createNewUser(@RequestParam(value = "viewName", required = true) String viewName,
+    private String createNewUser(@RequestParam(value = "viewName", required = true) String viewName,
                               @RequestParam(value = "login", required = true) String login,
                               @RequestParam(value = "password", required = true) String password,
                               @RequestParam(value = "email", required = true) String email,

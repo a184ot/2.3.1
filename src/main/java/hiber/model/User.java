@@ -4,7 +4,7 @@ package hiber.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user")
+@Table(name = "usertab")
 public class User {
 
     @Id
@@ -20,7 +20,7 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "email", unique = true, nullable = false)
+    @Column(name = "email", nullable = false)
     private String email;
 
     @Column(name = "age", nullable = false)
