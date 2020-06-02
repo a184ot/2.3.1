@@ -1,10 +1,10 @@
 package hiber.model;
 
+
 import javax.persistence.*;
 
-
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 public class User {
 
     @Id
@@ -14,7 +14,7 @@ public class User {
     @Column(name = "viewName", nullable = false)
     private String viewName;
 
-    @Column(name = "login", unique = true, nullable = false)
+    @Column(name = "login", unique = true)
     private String login;
 
     @Column(name = "password", nullable = false)

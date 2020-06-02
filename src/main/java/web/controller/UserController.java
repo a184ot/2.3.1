@@ -1,15 +1,11 @@
 package web.controller;
 
-import hiber.config.AppConfig;
 import hiber.model.User;
 import hiber.service.UserService;
-import hiber.service.UserServiceImp;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,36 +13,33 @@ import java.util.List;
 @RequestMapping("/")
 public class UserController {
 
-    AnnotationConfigApplicationContext context =
-            new AnnotationConfigApplicationContext(AppConfig.class);
+    @Autowired
+    private UserService userService;
 
-    UserService userService = context.getBean(UserService.class);
-    UserService userServiceImp = new UserServiceImp();
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @GetMapping("/")
     public String listUsers(ModelMap model) {
         List<User> userList = userService.listAllUsers();
         model.addAttribute("userList", userList);
         return "all-users";
     }
 
-    @RequestMapping(value = "admin", method = RequestMethod.POST)
+    @PostMapping("/admin")
     public String listUsersPost(ModelMap model) {
         List<User> userList = userService.listAllUsers();
         model.addAttribute("userList", userList);
         return "all-users";
     }
 
-    @RequestMapping(value = "update", method = RequestMethod.POST)
+    @PostMapping("/update")
     public String editUsers(@RequestParam String id, ModelMap model) {
         Long idLong = Long.parseLong(id);
         User user = userService.getUserById(idLong);
-
         model.addAttribute("user", user);
         return "update";
     }
 
-    @RequestMapping(value = "updateUser", method = RequestMethod.POST)
+    @PostMapping("/updateUser")
     public String editUsers2(@RequestParam String id, @RequestParam String viewName,
                            @RequestParam String login, @RequestParam String password,
                            @RequestParam String email, @RequestParam String age,
@@ -55,28 +48,26 @@ public class UserController {
         int ageInt = Integer.parseInt(age);
         User user = new User(idLong, viewName, login, password, email, ageInt, role);
         userService.editUser(user);
-
         List<User> userList = userService.listAllUsers();
         model.addAttribute("userList", userList);
         return "all-users";
     }
 
-    @RequestMapping(value = "delete", method = RequestMethod.POST)
+    @PostMapping("/delete")
     public String deleteUser(@RequestParam String id, ModelMap model) {
         Long idLong = Long.parseLong(id);
         userService.deleteUser(idLong);
-
         List<User> userList = userService.listAllUsers();
         model.addAttribute("userList", userList);
         return "all-users";
     }
 
-    @RequestMapping(value = "create", method = RequestMethod.POST)
+    @PostMapping("/create")
     public String createUser(ModelMap model) {
         return "create";
     }
 
-    @RequestMapping(value = "createUser", method = RequestMethod.POST)
+    @PostMapping("/createUser")
     public String createNewUser(@RequestParam(value = "viewName", required = true) String viewName,
                               @RequestParam(value = "login", required = true) String login,
                               @RequestParam(value = "password", required = true) String password,
@@ -85,7 +76,6 @@ public class UserController {
 
         int ageInt = Integer.parseInt(age);
         userService.add(new User(viewName, login, password, email, ageInt, "user"));
-
         List<User> userList = userService.listAllUsers();
         model.addAttribute("userList", userList);
         return "all-users";

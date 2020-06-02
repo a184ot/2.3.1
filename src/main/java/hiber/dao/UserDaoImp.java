@@ -13,12 +13,17 @@ import java.util.List;
 @Repository
 public class UserDaoImp implements UserDao {
 
+
+
+
     @Autowired
     private SessionFactory sessionFactory;
 
     @Override
     public void add(User user) {
-        sessionFactory.getCurrentSession().save(user);
+
+            sessionFactory.getCurrentSession().save(user);
+
     }
 
     @Override
@@ -27,18 +32,22 @@ public class UserDaoImp implements UserDao {
         sessionFactory.getCurrentSession().delete(user);
     }
 
+
     @Override
     public void editUser(User user) {
         sessionFactory.getCurrentSession().update(user);
 
     }
 
+
     @Override
     @SuppressWarnings("unchecked")
     public List<User> listAllUsers() {
         TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User");
+//        TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User");
         return query.getResultList();
     }
+
 
     @Override
     public User getUserByLogin(String login) {
@@ -54,6 +63,7 @@ public class UserDaoImp implements UserDao {
             session.close();
         }
     }
+
 
     @Override
     public User getUserById(Long id) {

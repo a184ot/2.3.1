@@ -12,7 +12,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("web")
+@ComponentScan(basePackages = {"web", "hiber"})
 public class WebConfig implements WebMvcConfigurer {
 
     @Override

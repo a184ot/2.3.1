@@ -4,6 +4,8 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 
 public class AppInit extends AbstractAnnotationConfigDispatcherServletInitializer {
 
+
+
     // Метод, указывающий на класс конфигурации
     @Override
     protected Class<?>[] getRootConfigClasses() {
