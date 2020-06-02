@@ -35,7 +35,7 @@ public class UserController {
     }
 
     @PostMapping("/update")
-    private String editUsers(@RequestParam String id, ModelMap model) {
+    private String editUserForm(@RequestParam String id, ModelMap model) {
         Long idLong = Long.parseLong(id);
         User user = userService.getUserById(idLong);
         model.addAttribute("user", user);
@@ -43,7 +43,7 @@ public class UserController {
     }
 
     @PostMapping("/updateUser")
-    private String editUsers2(@RequestParam String id, @RequestParam String viewName,
+    private String editedUsersSave(@RequestParam String id, @RequestParam String viewName,
                            @RequestParam String login, @RequestParam String password,
                            @RequestParam String email, @RequestParam String age,
                            @RequestParam String role, ModelMap model) {
@@ -66,7 +66,7 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    private String createUser(ModelMap model) {
+    private String createUserForm(ModelMap model) {
         return "create";
     }
 
@@ -76,7 +76,6 @@ public class UserController {
                               @RequestParam(value = "password", required = true) String password,
                               @RequestParam(value = "email", required = true) String email,
                               @RequestParam(value = "age", required = true) String age, ModelMap model) {
-
         int ageInt = Integer.parseInt(age);
         userService.add(new User(viewName, login, password, email, ageInt, "user"));
         List<User> userList = userService.listAllUsers();
